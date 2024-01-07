@@ -50,5 +50,5 @@ pub fn link(b: *std.Build, step: *std.Build.Step.Compile) void {
 pub fn link2(b: *std.Build, m: *std.Build.Module) void {
     const glfw_dep = b.dependency("glfw", .{});
     @import("glfw").link2(glfw_dep.builder, m);
-    m.linkLibrary(glfw_dep.artifact("glfw"));
+    m.addIncludePath(glfw_dep.path("include"));
 }
