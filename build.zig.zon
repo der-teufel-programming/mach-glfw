@@ -12,8 +12,8 @@
     },
     .dependencies = .{
         .glfw = .{
-            .url = "https://github.com/der-teufel-programming/glfw/archive/cff82071b670043c802d9f94375b8fcf7d34c24a.tar.gz",
-            .hash = "1220b2fbddc021a3ac5b1f896bede1c2a6ec6a2f09a7fc33f9e972d87ba13dd1b745",
+            .url = "https://github.com/der-teufel-programming/glfw/archive/e2f7c88124afc9e5597aa5e0c776c46134d69126.tar.gz",
+            .hash = "12201b447cb0aad57dfeb7f3ad99ffa19b7c87f05e730b5d7211615945bc93e3634b",
         },
     },
 }
