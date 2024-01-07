@@ -17,7 +17,7 @@ pub fn build(b: *Build) !void {
         .optimize = optimize,
     });
     link(b, lib);
-    link2(b, module);
+    linkModule(b, module);
     b.installArtifact(lib);
 
     const test_step = b.step("test", "Run library tests");
@@ -47,8 +47,8 @@ pub fn link(b: *std.Build, step: *std.Build.Step.Compile) void {
     step.linkLibrary(glfw_dep.artifact("glfw"));
 }
 
-pub fn link2(b: *std.Build, m: *std.Build.Module) void {
+pub fn linkModule(b: *std.Build, m: *std.Build.Module) void {
     const glfw_dep = b.dependency("glfw", .{});
-    @import("glfw").link2(glfw_dep.builder, m);
+    @import("glfw").linkModule(glfw_dep.builder, m);
     m.addIncludePath(glfw_dep.path("include"));
 }
