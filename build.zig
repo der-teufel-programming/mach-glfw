@@ -48,7 +48,14 @@ pub fn link(b: *std.Build, step: *std.Build.Step.Compile) void {
 }
 
 pub fn linkModule(b: *std.Build, m: *std.Build.Module, resolved_target: ?std.Build.ResolvedTarget) void {
-    const glfw_dep = b.dependency("glfw", .{});
+    const glfw_dep = if (resolved_target) |target| blk: {
+        const target_triple: []const u8 = target.query.zigTriple(b.allocator) catch @panic("OOM");
+        const cpu_opts: []const u8 = target.query.serializeCpuAlloc(b.allocator) catch @panic("OOM");
+        break :blk b.dependency("glfw", .{
+            .target = target_triple,
+            .cpu = cpu_opts,
+        });
+    } else b.dependency("glfw", .{});
     @import("glfw").linkModule(glfw_dep.builder, m, resolved_target);
     m.addIncludePath(glfw_dep.path("include"));
 }
