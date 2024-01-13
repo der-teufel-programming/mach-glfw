@@ -23,7 +23,7 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
     main_tests.linkLibrary(glfw_dep.artifact("glfw"));
-    addPaths(main_tests);
+    addPaths(&main_tests.root_module);
     b.installArtifact(main_tests);
 
     test_step.dependOn(&b.addRunArtifact(main_tests).step);
@@ -33,11 +33,11 @@ pub fn link(b: *std.Build, step: *std.Build.Step.Compile) void {
     _ = b;
     _ = step;
 
-    @panic(".link(b, step) has been replaced by .addPaths(step)");
+    @panic(".link(b, step) has been replaced by .addPaths(&step.root_module)");
 }
 
-pub fn addPaths(step: *std.Build.Step.Compile) void {
-    @import("glfw").addPaths(step);
+pub fn addPaths(module: *std.Build.Module) void {
+    @import("glfw").addPaths(module);
 }
 
 // comptime {
